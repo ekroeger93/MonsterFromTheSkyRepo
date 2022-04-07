@@ -1,0 +1,1117 @@
+TO DO LIST 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+to hell with it we'll get the determine trajectory done and we'll just strip 
+the sucker bare cold cut dry with added effects and proceed to finishing the project. All other plans are on hold for now until I plan to reopen the project for part 2 
+
+
+-predetermine trajectory(collision-free) X
+- on horizontal bounces(borders) X
+- on vertical bounces(borders)- X 
+- on compoents? X ---somwhat implemented able to manage mulitple however 
+need to define horizontal and vertical collisions---  
+- construction of sky fortresses using compoents - X considering requires collaberation
+of grouped compoents to be implemented 
+- manipulate trajectory while projectile is airborne- X not implemented but previous verisons
+have so its likely
+
+extras
+-need to specify the diffrent relations between borders and compoents with
+predetermine trajectory. X
+-
+
+DONE not yet
+
+Game 
+-pentalize player points when entity reaches pass boundary zone X
+-show animiation representing entity passing boundary zone
+-create goal points to achevie for every round x
+-failure of acheving goal at end round restarts the current 
+round and represents failure of acheivement
+-new projectile upgrade system
+
+?items with boilstering effects, bounus points
+?pause timer  when selecting ammunition
+strictly only when the sling is being pulled
+
+Projectiles
+
+-?Rock Projectile breaks on contact or 
+on mutiple contacts (duration attribute)
+
+
+--idea combined projectiles types together
+
+eg..
+    magnet and explosive 
+pulls enimies in and explodes them
+    blunt and barrier 
+creates a stonewall barrier
+    aerial and blunt
+projectile that shoots while airborne
+    barrier and magnet
+traps enenimies 
+Extended edition with more bosses
+
+>> Reloading
+-optmize reloading time for certain projectiles 
+blunt -3sec
+bomb - 12sec
+air - 20sec
+barrier - 1min
+magnet - 40sec
+
+
+-reloading while in airborne 
+
+<<
+
+-move magnetized enimies when timer expires X
+
+< moving in sync with magnet
+< magnet moves down such as enemies hoverDwn() 
+< ?magnet value of hoverDwn(value) depends on weight load
+
+
+-poxy detionation needs to be optimized for area damage or focus damage
+further revisement is needed >> perhaps having an option for the player
+to focus fire or extensive fire would surffice the functional capability
+need to be sought out. Input holding and press then release action
+Holding input concentrates the fireload into a focused area whereas
+pressing then release will expand and disperse the the fireload into a
+larger area
+
+-aerial gunner reconsiderations , doesnt feel very either intutitive or
+thrilling to have a projectile float down shooting enimies considering 
+revisement to where its more of an outside prespective and the player
+uses a crossair and selects eneimies to shoot at while decending, i could
+have the projectile instead draw itself inward toward the screen ( enlarging as
+it progresses and transparent)as to give a sense of depth like the gunner
+is in front of the enimies makingit more spaceous and less crowded when deloying
+a aerial gunner and better control -- IMPLEMENTED
+
+-need to fix where layering entities damage, change to a priority of 
+the 'met first' of the layering entity cluster X
+-adopt target into the aerial projectile rather than seprate 
+entity for flexibilty usage, let camera free fall on its own X
+-since only the back entity is targeted first, a farside animation
+representing a attack device is needed 
+
+
+Monsters
+-more monster species
+-revise death animation entities, flop over go into background  and fall
+when hit ground creates explosion
+-envade animiation monsters will go into background and go left/right of screen
+subscreen show a gesture animation indicating monster envading
+-hit animation simplify to white flashes instead
+-spawn monster species at specified altitudes
+
+
+
+Level
+-background hills,farmhouses,towns,cities
+-ground tile optmization
+-atmosphere w/ clouds, things and such
+
+ Radar - 
+? Horizontal preDetermination
+
+
+GAME-PLAY DEBATE
+
+?- PerTurn with organized formations of 
+enemy waves, thus creating a stragetic style
+of flow being able to mircomanage 
+?- Realtime with constant movement and further 
+engadement of attention for fast reflex
+
+-Hybrid
+enemies move based on a timeframe that expires 
+and resets after enemy movemnts. each enemy goes
+down diffrent lenghts based on rank
+the player has free movement throughout the game
+?>> freeze time when projectile is airbone X
+?>> extensive reloading projecitles
+
+
+>> beneifts the player to better manage the 
+enenmy waves rather than everything being at a 
+fast pace and constantly reajusting aim
+CONSIDERED IN FUTURE << IMPLEMENTED
+
+
+Debate Combo Intensive Gameplay 
+
+-hit as many targets as you can 
+-interactivity with projectiles 
+?More broader view, population area intensity 
+    -smaller scale entities 
+
+ Bomb projectile
+-smaller internal bombs 
+-directional dispersement (shotgun)
+-bigger explosion 
+-stop at apex height, select targets to 
+disperse smaller bombs
+-
+
+
+Debate Single unquie enimies vs variety 
+- rather a random variety hordie of enemies 
+a specific enimies with diffrent species 
+
+
+
+VELOCITY INVERSION DEFLECTION/REFLECTION GAMEPLAY
+
+
+
+
+
+
+
+OVERALL IMAGERY THEME
+
+debate --- 
+-old school , vintage , retro
+-? like old ink colored films
+-? old film 'fake looking'impression 
+-? story book
+-? movie poster <<
+
+-soft graident fills 
+-black intesnse shading patterens/crosshatching
+-smooth outlining 
+
+process
+Hand drawn protoype animation
+>>scan
+>>Resize and adjustments  
+Inkscape Outline
+>>export as png
+>>calibrate and align in animation sequence
+Edit
+
+-One symetric side 
+
+Design list 
+
+Monster Sprites -Semi-Complete
+Projectile Sprites -
+Radar, Slingshot, sub Gui -
+GUI Frame, EndRound -
+Level forground background - 
+Menus Main- 
+ 
+Interface design 
+-upper part of the UI displays X
+<points current> - <Timer>- <Penalties> <NumofInvaders> <round Num> 
+
+-Pop Comic Elements
+
+
+
+PREFORMANCE OPTIMIZATIONS
+unrolling loops 
+-image formats vs canvas drawn 
+-precache 
+-minimalization
+-testing
+
+
+MOBILITY CONSIDERATIONS
+
+-Scaling in and out to fit the game in the screen
+-touch gestures
+-preformance 
+-power saving features
+
+
+         operator = (xrht*1)+(xlft*2)+(yabv*4)+(yblw*8)
+             
+             /*
+             operator keys : 
+             1 right only   3 right & left
+             2 left only    5 right & above
+             4 above only   9 right & below
+             8 below only   6 left & above
+                            10 left & below
+                            12 above & below 
+                            11 right, left, & below
+                            7 right, left, & above 
+                            14 left, above, & below
+                            13 right, above, & below
+                            15 all BOX 
+             */
+
+
+
+
+
+
+TraceNodes : function(i)
+      {    this.sData[i].velX = this.sData[i-1].velX        
+            
+  //  if (this.sData[i-1].collH ===false && this.sData[i-1].collV ===false )        
+    //  { this.sData[i].tail =this.sData[i-1].tail }
+
+     this.sData[i].velY = this.sData[i-1].velY-12
+    
+            this.sData[i-1].velX > 0 ?( 
+    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+                                              ))):
+  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+                                            ))
+
+     
+     this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+     
+     },
+     
+     
+     
+     
+    if( this.sData[i].posX <=  (component.pos.x+component.size.x)  && this.sData[i-1].posX >  (component.pos.x+component.size.x) 
+       || this.sData[i].posX+45 >=  component.pos.x && this.sData[i-1].posX+45 <  component.pos.x) {
+        
+                if (segDisd.round(0) >= segDis2d.round(0) ){
+
+        //left side
+if (this.sData[i].posX <=  (component.pos.x+component.size.x)  && this.sData[i-1].posX >=  (component.pos.x+component.size.x)){
+    this.sData[i].collH = true;
+    this.sData[i].posX =  (component.pos.x+component.size.x);}
+            
+            //right side
+           if (this.sData[i].posX >=  component.pos.x-45 && this.sData[i-1].posX <  component.pos.x-45) {  
+               this.sData[i].collH = true;
+               this.sData[i].posX =  (component.pos.x-45);
+           }
+                    
+                }  else {this.sData[i].collH = false;}
+    
+    
+                }  else {this.sData[i].collH = false;}
+}         
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+    if( this.sData[i].posX <=  0  && this.sData[i-1].posX >  0
+       ||this.sData[i].posX+45 >=  2100 && this.sData[i-1].posX+45 <  2100) {
+
+
+        if (segDisd.round(0) >= segDis2d.round(0) ){
+
+        //left side
+           if (  this.sData[i].posX <  (0))this.InverseHvel(i,0);//this.sData[i].posX =  (0);
+            
+            
+            //right side
+           if (this.sData[i].posX >  2100-45)this.InverseHvel(i,2100-45);//this.sData[i].posX =  (2100-45);
+        
+            
+       
+        //this.sData[i].collH = true;
+        }
+         else {   this.TraceNodes(i)   ;this.sData[i].collH = false;
+              }
+
+   
+
+    }else{this.sData[i].collH = false; //  this.TraceNodes(i);   
+         }
+         
+         
+//GROUND CHECKING
+//OVERLAPING OVER GROUND IS CAUSING INNACCURACIES 
+/*
+Somhow the previous(i-1) node goes further down than the current(i) causing it
+to be disloged and in effectivly causing innaccarcies 
+it should'nt be normal for the projectile to land the ground twice without it 
+bouncing off so logically id expect the nodes to do the same 
+FIXED
+
+ALSO Corners disloged it as well
+
+*/         
+
+
+    if( this.sData[i].posY >= 1200 //&&  this.sData[i-1].collV === false 
+     && this.sData[i-1].posY != 1200 
+      ) {
+
+        if (segDisdy  >= segDis2dy ){ 
+            
+      //  this.sData[i].posY =1200
+        //  this.sData[i-1].posY =1200//wtf???? it works 
+        //node displacement calibrated and in sync with projectile 
+        //perhaps a nesscary offset to compinsate for the segment distance?
+        //my guess is the ball is in contact with ground for 2 frames
+        //OR theres a VelX "Shift" as the ball is in contact with the ground?
+        //gravity variable is surely influncing this phenominon  
+       this.sData[i].collV = true;
+        this.InverseVvel(i,1200);
+               this.TraceNodes(i-1,1200);
+       // this.InverseVvel(i-1,1200);
+//        this.TraceNodes(i-1);
+       // this.InverseVvel(i-1);    
+            
+        } else{this.sData[i].collV =false 
+    //this.TraceNodes(i-1)
+    this.TraceNodes(i);     
+ 
+   //this.InverseVvel(i-1);
+              
+              }
+    }
+        //if(this.sData[i].posY < 1200 ){ this.sData[i].collV =false }
+        else{
+             this.sData[i].collV =false 
+    //   this.TraceNodes(i-1)
+      //  this.TraceNodes(i);
+        
+        //this.InverseVvel(i-1);
+         
+        }
+         
+//    if (this.sData[i-1].posY >= 1200 && this.sData[i].collV === true
+//       ){
+//        this.sData[i-1].posY =1200
+//        this.sData[i-1].collV = true;
+//        this.sData[i].collV =false
+//                         }
+//         else {this.sData[i-1].collV = false}
+
+         
+//ROOF CHECKING         
+//         if( this.sData[i].posY <=  -10000 &&  this.sData[i-1].collV === false) {
+//
+//        if (segDisY >= segDis2Y){
+//
+//            this.sData[i].posY =-10000
+//          
+//        this.sData[i].collV =true; 
+//                         
+//        } else{ this.sData[i].collV =false }
+//    }else{ this.sData[i].collV =false }
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+         
+
+         
+   //  if (this.sData[i].collH ===true )  this.InverseHvel(i);
+        
+                  
+    // if (this.sData[i].collV ===true  )this.InverseVvel(i);
+    
+        
+         
+         
+
+    if (this.sData[i].collH ===false && this.sData[i].collV ===false 
+       )
+        
+        { //  this.TraceNodes(i)
+        
+//
+//    this.sData[i].velX = this.sData[i-1].velX        
+//            
+//    if (this.sData[i-1].collH ===false && this.sData[i-1].collV ===false )        
+//      { this.sData[i].tail =this.sData[i-1].tail }
+//
+//     this.sData[i].velY = this.sData[i-1].velY-12
+//    
+//            this.sData[i-1].velX > 0 ?( 
+//    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+//                                              ))):
+//  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+//                                            ))
+//
+//     
+//     this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+//     
+     
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ InverseHvel : function(i,modPosX)
+     {        modPosX = typeof modPosX !== 'undefined' ? modPosX : this.sData[i-1].posX;
+    this.sData[i].velX=(this.sData[i-1].velX*-ig.game.loadedBallType.bounciness)    
+    this.sData[i].velY = this.sData[i-1].velY-12
+    this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+     },
+InverseVvel : function(i,modPosY)
+     {    
+         
+         modPosY = typeof modPosY !== 'undefined' ? modPosY : this.sData[i-1].posY;
+        this.sData[i].posY =  modPosY;
+         
+    this.sData[i].velX=this.sData[i-1].velX ; 
+         
+     (this.sData[i].velY > 0) ?
+     this.sData[i].velY = ((this.sData[i-1].velY-12
+                           )*-ig.game.loadedBallType.bounciness) :
+     this.sData[i].velY = ((this.sData[i-1].velY+12
+                          )*-ig.game.loadedBallType.bounciness);
+
+    this.sData[i].velX > 0 ?( 
+    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+                                              ))):
+  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+     ))},
+     
+TraceNodes : function(i,modPosY)
+      {    this.sData[i].velX = this.sData[i-1].velX        
+            
+      
+        modPosY = typeof modPosY !== 'undefined' ? modPosY : this.sData[i-1].posY+(-this.sData[i].velY*.04)
+      
+  //  if (this.sData[i-1].collH ===false && this.sData[i-1].collV ===false )        
+      { this.sData[i].tail =this.sData[i-1].tail }
+
+     this.sData[i].velY = this.sData[i-1].velY-12
+    
+            this.sData[i-1].velX > 0 ?( 
+    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+                                              ))):
+  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+                                            ))
+
+     
+     this.sData[i].posY =  modPosY;//this.sData[i-1].posY+(-this.sData[i].velY*.04)
+     
+     },
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////        
+update: function() {
+
+this.parent();
+storage.set('gameMode',0)
+
+		
+//if(ig.gui.show ) ig.gui.draw();
+		
+ig.game.gameMode = 1;
+ig.game.newRound = true
+
+if (this.gameMode == 1){
+
+   if  (ig.game.loadedBallType.vel.y === 0) ig.game.syncTime.unpause();
+      if  (ig.game.loadedBallType.vel.y != 0) ig.game.syncTime.pause();
+    
+if (ig.game.syncTime.delta() > 10 ) {
+
+//have variable flag entity when to hover down
+    for(i =0; i <= ig.game.enemyArchive.length; i++){
+		if (typeof ig.game.getEntityByID(ig.game.enemyArchive[i])!= 'undefined' && ig.game.getEntityByID(ig.game.enemyArchive[i]).hoverDwn== false )
+            { ig.game.getEntityByID(ig.game.enemyArchive[i]).hoverDwn = true}
+            else {ig.game.syncTime.reset();}
+            }
+       
+    
+  
+}}
+
+
+    if (this.comboReset.delta() > 0 ) this.comboCount =1;
+
+    if (this.gameMode == 1 && this.countEnemy < 1 && this.wave < 2) {this.wave++;this.RoundUpdas();}
+
+    if (this.wave === 2 && this.countEnemy < 1){	
+	   storage.set('points', this.stats.points );
+	   storage.set('gameMode', 0)
+	   storage.set('round', this.roundNum+=1)
+       storage.set('round',0)
+	   ig.system.setGame( MyGame );}
+    
+    
+//Pelimiary Calcuation of Zero Velocity Projectile begin  
+    
+    
+var inTime,vRate,hRate,maxV,curPos,curVel,solPos,base,invCase,reflector,
+    collides, wall,size,ghost,segDis,ax,ay,bx,by; 
+
+ 
+
+    
+    
+wall = ig.game.getEntitiesByType(EntityWallBorder)[0];
+size =ig.game.loadedBallType.size.x
+     
+curVel= {x:0,y:0};    
+curPos= {x:0,y:0};  //current
+solPos= {x:0,y:0};  //solved
+maxV= {x:0,y:0};
+base = 0;    
+//lastEnNode ={x:0,y:0}//position of the last node in previous time frame    
+
+//   
+this.tDelay.unpause() 
+
+if (this.tDelay.delta() > 0.12)
+   {
+    this.lastEnNode.x = this.sData[this.sData.length-1].posX
+    this.lastEnNode.y = this.sData[this.sData.length-1].posY    
+       this.tDelay.set(0)
+   }else
+   {
+
+   }
+//      lastEnNode.x = this.sData[this.sData.length-1].posX
+//    lastEnNode.y = this.sData[this.sData.length-1].posY
+//    
+//  console.log(this.lastEnNode.x)
+  //  console.log(this.tDelay.delta())
+    //vRate = 0
+   // hRate = .2
+/*    
+    vRate = (300*ig.game.loadedBallType.phyTime.delta().round(3)).round()
+    hRate = (5*ig.game.loadedBallType.phyTime.delta().round(3)).round(1)
+    
+    if (ig.game.loadedBallType.freeze == true){
+    vRate =(300*(ig.game.loadedBallType.phyTime.delta().round(3)-.04)).round()
+    hRate = (5*(ig.game.loadedBallType.phyTime.delta().round(3))).round(1)-.2
+    }
+  */
+  
+    
+// console.log(   this.isIntersecting(this.lastEnNode.x,this.lastEnNode.y,
+//                       this.sData[this.sData.length-1].posX,
+//                        this.sData[this.sData.length-1].posY,
+//                        800,10000,800,-10000
+//                       )
+//    )
+//ball is launched      
+    maxV.y  = ig.game.getEntitiesByType(EntitySling)[0].maxVelocity
+    maxV.x  =ig.game.getEntitiesByType(EntitySling)[0].maxVelocityX
+
+    solPos.x = ig.game.getEntitiesByType(EntitySling)[0].prePositionX
+    solPos.y = ig.game.getEntitiesByType(EntitySling)[0].prePositionY
+    
+//when ball is suspened      
+    curPos.x = ig.game.loadedBallType.pos.x
+    curPos.y = ig.game.loadedBallType.pos.y
+
+    curVel.x=ig.game.loadedBallType.vel.x
+    curVel.y=ig.game.loadedBallType.vel.y
+  
+    
+    
+
+             maxV.x  > 0?(       
+         
+    //right     
+     this.sData[0].velX = maxV.x - ((5*this.sData[0].inTime))):
+     (
+     //left
+     this.sData[0].velX = maxV.x + ((5*this.sData[0].inTime)));
+     
+     
+ 
+   
+   this.sData[0].velY = maxV.y - ((300*(this.sData[0].inTime)))
+    
+   
+   this.sData[0].posY = solPos.y
+   
+
+  this.sData[0].posX = solPos.x - ig.game.loadedBallType.parOffset.x;
+  
+    
+    this.sData[1].velX= this.sData[0].velX
+    
+     this.sData[1].velY = maxV.y - (300*this.sData[1].inTime);
+    
+    this.sData[1].posX =  this.sData[0].posX+(this.sData[0].velX*.04)
+    
+    this.sData[1].posY =  this.sData[0].posY+(-this.sData[1].velY*.04)
+    
+
+    var ax,ay,bx,by,cx,cy,segDis,segDis2       
+
+    
+ /*
+ DEPRECATED THE (2-d) DISTANCE EQUATION 
+ the 2-d distance equation of x & y seems more buggish than 
+ the 1-d distance x & x.
+ 
+ */   
+    
+    
+    
+    for(i=2; i< this.sData.length; i++)
+     {
+
+         
+    adx = this.sData[i-2].posX;
+    bdx = this.sData[i-1].posX;
+    cdx = this.sData[i].posX;
+        
+        segDisd = Math.abs(adx - bdx).round(0);
+        segDis2d= Math.abs(cdx - bdx).round(0);         
+         
+    ady = this.sData[i-2].posY;
+    bdy = this.sData[i-1].posY;
+    cdy = this.sData[i].posY;
+        
+        segDisdy = (-ady + bdy).round(0);
+        segDis2dy= (-bdy + cdy).round(0);         
+
+         
+  if (this.sData[i-1].collH ===true && this.sData[i].collH ===false &&
+     this.sData[i-1].tail ===this.sData[i].tail ||
+      this.sData[i-1].collV ===true && this.sData[i].collV ===false &&
+     this.sData[i-1].tail ===this.sData[i].tail 
+      
+     )       
+      {this.sData[i].tail+=1//this.sData[i-1].collH ===true; 
+      }
+
+         
+    if (ig.game.componentArchive.length > this.sData[ this.sData.length-1].tail+1 &&
+        ig.game.componentArchive.length > 0)
+        {ig.game.componentArchive.pop()}
+
+
+         
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+         for(j=0;j<this.componentArchive2.length;j++){
+             
+          var compoent2;
+             
+             if(this.componentArchive2[j]){
+                
+                   component2 = this.getEntityByID(this.componentArchive2[j]) ;
+             
+                 
+if ( this.sData[i].posX <=  (component2.pos.x+component2.size.x)  && this.sData[i-1].posX >  (component2.pos.x+component2.size.x) 
+    || this.sData[i].posX+45 >=  component2.pos.x && this.sData[i-1].posX+45 <  component2.pos.x)
+{
+if (typeof this.componentArchive[this.sData[i].tail-1]!== 'undefined' &&
+   ig.game.componentArchive[this.sData[i].tail-1] != this.id ||
+    this.sData[i].tail === 0
+   )
+ig.game.componentArchive[this.sData[i].tail]= this.componentArchive2[j];}}}
+    
+var component; component = null; 
+         if (ig.game.componentArchive[this.sData[i].tail]){
+          component = ig.game.getEntityByID(ig.game.componentArchive[this.sData[i].tail])       }
+
+                 
+//if (component){
+//
+//        
+//    ax = this.sData[i-2].posX;
+//    bx = this.sData[i-1].posX;
+//    cx = this.sData[i].posX;
+//        
+//        segDis = Math.abs(ax - bx).round(0);
+//        segDis2= Math.abs(cx - bx).round(0);
+//       
+//    if( this.sData[i].posX <=  (component.pos.x+component.size.x)  && this.sData[i-1].posX >  (component.pos.x+component.size.x) 
+//       ||this.sData[i].posX+45 >=  component.pos.x && this.sData[i-1].posX+45 <  component.pos.x) {
+//
+//
+//        if (segDis >= segDis2){
+//
+//        //left side
+//           if (  this.sData[i].posX <=  (component.pos.x+component.size.x)  && this.sData[i-1].posX >=  (component.pos.x+component.size.x)
+//              ) {
+//            this.sData[i].posX =  (component.pos.x+component.size.x);
+//            }
+//            
+//            //right side
+//           if (this.sData[i].posX >=  component.pos.x-45 && this.sData[i-1].posX <  component.pos.x-45) {       
+//        this.sData[i].posX =  (component.pos.x-45);
+//           }
+//            
+//         
+//        this.sData[i].collH = true;
+//            
+//                    this.sData[i].velX=(this.sData[i-1].velX*-ig.game.loadedBallType.bounciness)    
+//     
+//     this.sData[i].velY =  maxV.y - (300*this.sData[i].inTime);
+//  
+//          // this.sData[i-1].posY+(-this.sData[i].velY*.04)
+//     this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+//            
+//        }
+//         else {this.sData[i].collH = false; }
+//
+//   
+//
+//    }else{       
+//    if( this.sData[i].posX <=  0  && this.sData[i-1].posX >  0
+//       ||this.sData[i].posX+45 >=  2100 && this.sData[i-1].posX+45 <  2100) {
+//
+//
+//        if (segDisd.round(0) >= segDis2d.round(0) ){
+//
+//        //left side
+//           if (  this.sData[i].posX <  (0))this.sData[i].posX =  (0);
+//            
+//            
+//            //right side
+//           if (this.sData[i].posX >  2100-45)this.sData[i].posX =  (2100-45);
+//        
+//            
+//       
+//        this.sData[i].collH = true;}
+//         else {this.sData[i].collH = false;}
+//
+//   
+//
+//    }else{this.sData[i].collH = false
+//         }
+//          }
+//
+//
+//
+//}else{
+    
+         
+         
+/// try to get rid of the dependence on collH and collV          
+         
+//WALL BORDERS CHECKING         
+
+       
+    if( this.sData[i].posX <=  0  && this.sData[i-1].posX >  0
+       ||this.sData[i].posX+45 >=  2100 && this.sData[i-1].posX+45 <  2100) {
+
+
+        if (segDisd.round(0) >= segDis2d.round(0) ){
+
+        //left side
+           if (  this.sData[i].posX <  (0))this.sData[i].posX =  (0);
+            
+            
+            //right side
+           if (this.sData[i].posX >  2100-45)this.sData[i].posX =  (2100-45);
+        
+            
+       
+        this.sData[i].collH = true;}
+         else {this.sData[i].collH = false;}
+
+   
+
+    }else{this.sData[i].collH = false
+         }
+//}
+         
+//GROUND CHECKING
+//OVERLAPING OVER GROUND IS CAUSING INNACCURACIES 
+/*
+Somhow the previous(i-1) node goes further down than the current(i) causing it
+to be disloged and in effectivly causing innaccarcies 
+it should'nt be normal for the projectile to land the ground twice without it 
+bouncing off so logically id expect the nodes to do the same 
+FIXED
+
+ALSO Corners disloged it as well
+
+*/         
+
+
+    if( this.sData[i].posY >= 1200 &&  this.sData[i-1].collV === false 
+    // && this.sData[i-1].posY <= 1200 
+      ) {
+
+        if (segDisdy  >= segDis2dy ){ 
+            
+        this.sData[i].posY =1200
+          this.sData[i-1].posY =1200//wtf???? it works 
+        //node displacement calibrated and in sync with projectile 
+        //perhaps a nesscary offset to compinsate for the segment distance?
+        //my guess is the ball is in contact with ground for 2 frames
+        //OR theres a VelX "Shift" as the ball is in contact with the ground?
+        //gravity variable is surely influncing this phenominon  
+       this.sData[i].collV = true;
+//        this.InverseVvel(i);
+//        this.TraceNodes(i-1);
+//       // this.InverseVvel(i-1);    
+            
+        } else{this.sData[i].collV =false 
+    //this.TraceNodes(i-1)
+   // this.TraceNodes(i);     
+    //this.TraceNodes(i-1);
+   //this.InverseVvel(i-1);
+              
+              }
+    }
+        //if(this.sData[i].posY < 1200 ){ this.sData[i].collV =false }
+        else{
+             this.sData[i].collV =false 
+    //   this.TraceNodes(i-1)
+       // this.TraceNodes(i);
+        
+        //this.InverseVvel(i-1);
+         
+        }
+         
+//    if (this.sData[i-1].posY >= 1200 && this.sData[i].collV === true
+//       ){
+//        this.sData[i-1].posY =1200
+//        this.sData[i-1].collV = true;
+//        this.sData[i].collV =false
+//                         }
+//         else {this.sData[i-1].collV = false}
+
+         
+//ROOF CHECKING         
+//         if( this.sData[i].posY <=  -10000 &&  this.sData[i-1].collV === false) {
+//
+//        if (segDisY >= segDis2Y){
+//
+//            this.sData[i].posY =-10000
+//          
+//        this.sData[i].collV =true; 
+//                         
+//        } else{ this.sData[i].collV =false }
+//    }else{ this.sData[i].collV =false }
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+         
+
+         
+     if (this.sData[i].collH ===true )  this.InverseHvel(i);
+        
+                  
+     if (this.sData[i].collV ===true  )this.InverseVvel(i);
+    
+        
+         
+         
+
+    if (this.sData[i].collH ===false && this.sData[i].collV ===false 
+       )
+        
+        {   this.TraceNodes(i)
+        
+//
+//    this.sData[i].velX = this.sData[i-1].velX        
+//            
+//    if (this.sData[i-1].collH ===false && this.sData[i-1].collV ===false )        
+//      { this.sData[i].tail =this.sData[i-1].tail }
+//
+//     this.sData[i].velY = this.sData[i-1].velY-12
+//    
+//            this.sData[i-1].velX > 0 ?( 
+//    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+//                                              ))):
+//  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+//                                            ))
+//
+//     
+//     this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+//     
+     
+ }
+     }
+
+    
+    
+    
+	},
+
+
+Randomize : function (max,min)
+	{	var rand = Math.floor(Math.random()*max)+min
+	return rand;
+	},
+	
+RoundUpdas : function ()
+{
+  
+  
+for  (i =0 ; i < this.rSpawnManagement[this.roundNum].length; i++ ){
+
+this.graceEntry=(this.rSpawnManagement[this.roundNum][i][1]/3).floor()-this.rSpawnManagement[this.roundNum][i][2]
+this.standEntry = ((this.rSpawnManagement[this.roundNum][i][1]-this.graceEntry)/2).floor()-this.rSpawnManagement[this.roundNum][i][2]+this.rSpawnManagement[this.roundNum][i][3]
+this.challEntry = this.rSpawnManagement[this.roundNum][i][1]-(this.graceEntry + this.standEntry)
+
+this.spawnQuery=[this.graceEntry,this.standEntry,this.challEntry]
+
+for (j=0; j != this.spawnQuery[this.wave]; j++){
+    
+ig.game.spawnEntity(this.rSpawnManagement[this.roundNum][i][0],
+                    this.Randomize(this.gameDimesion.xLevel,0)
+                  // this.gameDimesion.xLevel/2
+                    ,-this.Randomize(5000,4000))}//<<< spawning coordinates
+
+}
+
+
+
+
+},
+     
+////////////////////////////////////////////////////////////////////////////////////////////////     
+
+     
+InverseHvel : function(i)
+     {  
+    this.sData[i].velX=(this.sData[i-1].velX*-ig.game.loadedBallType.bounciness)    
+    this.sData[i].velY = this.sData[i-1].velY-12
+    this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+     },
+InverseVvel : function(i)
+     {    
+    this.sData[i].velX=this.sData[i-1].velX ; 
+         
+     (this.sData[i].velY > 0) ?
+     this.sData[i].velY = ((this.sData[i-1].velY-12
+                           )*-ig.game.loadedBallType.bounciness) :
+     this.sData[i].velY = ((this.sData[i-1].velY+12
+                          )*-ig.game.loadedBallType.bounciness);
+
+    this.sData[i].velX > 0 ?( 
+    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+                                              ))):
+  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+     ))},
+     
+TraceNodes : function(i)
+      {    this.sData[i].velX = this.sData[i-1].velX        
+            
+  //  if (this.sData[i-1].collH ===false && this.sData[i-1].collV ===false )        
+      { this.sData[i].tail =this.sData[i-1].tail }
+
+     this.sData[i].velY = this.sData[i-1].velY-12
+    
+            this.sData[i-1].velX > 0 ?( 
+    this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//-this.sData[i].Xrate
+                                              ))):
+  this.sData[i].posX =(this.sData[i-1].posX-((this.sData[i].velX*-.04)//+this.sData[i].Xrate
+                                            ))
+
+     
+     this.sData[i].posY =  this.sData[i-1].posY+(-this.sData[i].velY*.04)
+     
+     },
+          
+//////////////////////////////////////////////////////////////////////////////////////////////
+     
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Impact Game</title>
+	<style type="text/css">
+		html,body {
+			background-color: #333;
+			color: #fff;
+			font-family: helvetica, arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			font-size: 12pt;
+    
+		}
+		
+		#canvas {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+        
+
+        
+	</style>
+	
+
+    <!--<img  src="media/OscillAnim.gif" id="OscillAnim" width="64" height="32"></img>
+    -->
+    
+
+<!--	<script type="text/javascript" src="webgl-2d-master/webgl-2d.js">	</script>-->
+    
+    
+	<script type="text/javascript" src="lib/impact/impact.js"></script>
+	<script type="text/javascript" src="lib/game/main.js"></script>
+
+
+<!--	    <script charset='utf-8' src='webgl-2d-2-master/bower_components/jquery/dist/jquery.min.js' type='text/javascript'></script>-->
+
+
+	
+</head>
+
+
+
+<body>
+	<canvas id="canvas" ></canvas>
+    
+<!--
+        <form>
+        <audio id="button-loop-1" type="button" value="1"></audio>
+        <audio id="button-loop-2" type="button" value="2"></audio>
+    </form>
+-->
+
+    <script>
+        
+        
+        shareImg = function(img) {
+            
+                    document.write('<img id="score" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;margin: auto;	" src="'+img+'"/>');
+       
+            
+            
+            document.write('   <a href="http://www.facebook.com/sharer.php?u='+window.location.href+'"><img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /> </a>')
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+    //--------------
+    // Audio Object
+    //--------------
+            // Create the event.
+//var event = document.createEvent('Event');
+//
+//// Define that the event name is 'build'.
+//
+//
+//// Listen for the event.
+//
+//  if (document.createEvent) {
+//    event = document.createEvent("HTMLEvents");
+//event.initEvent('build', true, true);
+//  } else {
+//    event = document.createEventObject();
+//    event.eventType = "build";
+//  }
+//
+//  event.eventName = "build";
+        
+        
+       // var event = new CustomEvent("build", { "detail": "Example of an event" });
+        
+// target can be any Element or other EventTarget.
+
+        
+        
+        
+        var playThis=false;
+        var playing =false;
+        var guiRunning=false;
+        var audVdata=0;
+        
+        
+//        a2a_config.overlays = a2a_config.overlays || [];
+//a2a_config.overlays.push({
+//    services: ['pinterest', 'facebook', 'houzz', 'tumblr'],
+//    size: '50',
+//    style: 'horizontal',
+//    position: 'top center'
+//});
+        
+        
+        
+    var audio = {
+        buffer: {},
+        compatibility: {},
+        files: [
+            'music/startupBeat1.mp3',
+            'music/Beat1.mp3',
+            'music/lowBeat1.mp3',
+            'music/highBeat1.mp3'
+        ],
+        proceed: true,
+        source_loop: {},
+        source_once: {}
+    };
+
+    //-----------------
+    // Audio Functions
+    //-----------------
+    audio.findSync = function(n) {
+        var first = 0,
+            current = 0,
+            offset = 0;
+
+        // Find the audio source with the earliest startTime to sync all others to
+        for (var i in audio.source_loop) {
+            current = audio.source_loop[i]._startTime;
+            if (current > 0) {
+                if (current < first || first === 0) {
+                    first = current;
+                }
+            }
+        }
+
+        if (audio.context.currentTime > first) {
+            offset = (audio.context.currentTime - first) % audio.buffer[n].duration;
+        }
+
+        return offset;
+    };
+
+    audio.play = function(n) {
+        if (audio.source_loop[n]._playing) {
+            audio.stop(n);
+        } else {
+            audio.source_loop[n] = audio.context.createBufferSource();
+            audio.source_loop[n].buffer = audio.buffer[n];
+            audio.source_loop[n].loop = true;
+            audio.source_loop[n].connect(audio.context.destination);
+
+             audio.source_loop[n].connect(analyser);
+            
+            
+            var offset = audio.findSync(n);
+            audio.source_loop[n]._startTime = audio.context.currentTime;
+
+            if (audio.compatibility.start === 'noteOn') {
+                /*
+                The depreciated noteOn() function does not support offsets.
+                Compensate by using noteGrainOn() with an offset to play once and then schedule a noteOn() call to loop after that.
+                */
+                audio.source_once[n] = audio.context.createBufferSource();
+                audio.source_once[n].buffer = audio.buffer[n];
+                audio.source_once[n].connect(audio.context.destination);
+               audio.source_once[n].noteGrainOn(0, offset, audio.buffer[n].duration - offset); // currentTime, offset, duration
+               // audio.source_once[n].play();
+                
+                
+                /*
+                Note about the third parameter of noteGrainOn().
+                If your sound is 10 seconds long, your offset 5 and duration 5 then you'll get what you expect.
+                If your sound is 10 seconds long, your offset 5 and duration 10 then the sound will play from the start instead of the offset.
+                */
+
+                // Now queue up our looping sound to start immediatly after the source_once audio plays.
+                audio.source_loop[n][audio.compatibility.start](audio.context.currentTime + (audio.buffer[n].duration - offset));
+            } else {
+                audio.source_loop[n][audio.compatibility.start](0, offset);
+            }
+
+            audio.source_loop[n]._playing = true;
+        }
+    };
+
+    audio.stop = function(n) {
+        
+     //   if(audio.source_loop[n]){
+        if (audio.source_loop[n]._playing) {
+            audio.source_loop[n][audio.compatibility.stop](0);
+            audio.source_loop[n]._playing = false;
+            audio.source_loop[n]._startTime = 0;
+            if (audio.compatibility.start === 'noteOn') {
+                audio.source_once[n][audio.compatibility.stop](0);
+            }}
+            
+            
+      //  }
+        
+    };
+
+        
+        
+
+        
+        
+        
+        
+        
+    //-----------------------------
+    // Check Web Audio API Support
+    //-----------------------------
+    try {
+        // More info at http://caniuse.com/#feat=audio-api
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audio.context = new window.AudioContext(); 
+        
+        var analyser =   audio.context.createAnalyser();
+        
+    } catch(e) {
+        audio.proceed = false;
+        alert('Web Audio API not supported in this browser.');
+    }
+     
+    if (audio.proceed) {
+        
+
+        
+this.analyser.fftSize = 2048;
+
+        
+        
+//     var sliceWidth = 10 * 1.0 / bufferLength;
+//      var x = 0;
+//
+//      for(var i = 0; i < bufferLength; i++) {
+//   
+//        var v = dataArray[i] / 128.0;
+//        var y = v * 10/2;
+//
+//        x += sliceWidth;
+//      }
+        
+        
+//console.log(this.analyser.getByteTimeDomainData(dataArray));
+        //---------------
+        // Compatibility
+        //---------------
+        (function() {
+            var start = 'start',
+                stop = 'stop',
+                buffer = audio.context.createBufferSource();
+
+            if (typeof buffer.start !== 'function') {
+                start = 'noteOn';
+            }
+            audio.compatibility.start = start;
+
+            if (typeof buffer.stop !== 'function') {
+                stop = 'noteOff';
+            }
+            audio.compatibility.stop = stop;
+        })();
+
+        //-------------------------------
+        // Setup Audio Files and Buttons
+        //-------------------------------
+        for (var a in audio.files) {
+            (function() {
+                var i = parseInt(a) + 1;
+                var req = new XMLHttpRequest();
+                req.open('GET', audio.files[i - 1], true); // array starts with 0 hence the -1
+                req.responseType = 'arraybuffer';
+                req.onload = function() {
+                    audio.context.decodeAudioData(
+                        req.response,
+                        function(buffer) {
+                            audio.buffer[i] = buffer;
+                            audio.source_loop[i] = {};
+                            
+                            var button = document.getElementById('button-loop-' + i);
+                            var canvas = document.getElementById('canvas');
+                            
+       
+//                       canvas.addEventListener('build', function (e) {  
+//                                 
+//                           if (playing ==false){
+//               audio.play(1);playing =true;
+//
+//                           
+//                           }
+//                           
+//                           
+//});
+//                       
+//                            function eventHandler(e) {
+//audio.play("1");
+//}
+                         //   audio.play(1);
+                            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                                
+                                           canvas.addEventListener('touchstart', function(e) {
+                              //  e.preventDefault();
+                                
+                                          if (playing ==false){
+                                              var x=parseInt(playThis);
+                                              
+                    e.preventDefault();    
+                                    
+                                              audio.play(playThis);
+                                              
+                                              
+                                              playing =true;
+                           
+                           }
+                           
+                                
+                               
+    
+                                
+                           
+                                
+                            });
+                                
+                                
+    // is mobile..
+}else{        
+    
+    
+    
+//                     if (playing ==false){
+//               audio.play(1);playing =true;
+//
+//                           
+//                           }
+//     
+     
+     }
+
+                            
+             
+                    
+                            
+                        },
+                        function() {
+                            console.log('Error decoding audio "' + audio.files[i - 1] + '".');
+                        }
+                    );
+                };
+                req.send();
+            })();
+        }
+    }
+        
+        
+//      var _previousAmplitude = 0;
+//        var amp;
+//      
+//        
+//        
+//        getAmp= function(){
+//            
+//          var bufferLength = analyser.fftSize;
+//var dataArray = new Uint8Array(bufferLength);
+//this.analyser.getByteTimeDomainData(dataArray);
+//        
+//        
+//         // Calculate peak
+//    const peak = dataArray[0];
+//    // Scale amplitude to between 0 and 1
+//    const amplitude = (peak - 128) / 128;console.log( amplitude);
+//   return amplitude;  
+//            
+//            
+//        }
+//        
+//        smoothAmp=function(){
+//          //  amp=this.getAmp;
+//            const smoothAmp = lerp(this._previousAmplitude,amp, 0.15);
+//    this._previousAmplitude = smoothAmp;
+//    return smoothAmp;  
+//        }
+//        
+//        
+//        getAmpSmooth = function(factor = 0.15) {
+// this.amp = this.getAmp();  
+//    const smoothAmp = this.smoothAmp(amp, factor);
+//    return smoothAmp;
+//};
+//        
+//        function lerp(a, b, t) {
+//    return a + (b - a) * t;
+//}
+//        var a=getAmpSmooth( 0.15);
+//        
+//        console.log(amp);
+        
+       // console.log(analyzerNode.fftSize);
+        
+        
+        
+        
+        
+//        
+//       (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+//const lerp = require('../src/maths.js').lerp;
+//
+//module.exports = function(v) {
+//    const ctx = v.renderingContext;
+//    const canvasWidth = ctx.canvas.width;
+//    const canvasHeight = ctx.canvas.height;
+//
+//    // Get amplitude
+//    const amp = v.getAmplitudeSmooth(0.15);
+//
+//    // Calculate actual size of square (between 0 and 1000 pixels)
+//    const actualSize = lerp(0, canvasHeight, amp);
+//    
+//    // Calculate position of origin of square
+//    const centreX = canvasWidth/2;
+//    const centreY = canvasHeight/2;
+//
+//    const originX = centreX - actualSize/2;
+//    const originY = centreY - actualSize/2;
+//
+//    // Clear canvas
+//    ctx.clearRect(0,0,canvasWidth,canvasHeight);
+//
+//    // Set fill style
+//    ctx.fillStyle = `hsl(${lerp(0, 360, amp)},100%,50%)`;
+//
+//    ctx.fillRect(originX, originY, actualSize, actualSize);
+//};
+//},{"../src/maths.js":3}],2:[function(require,module,exports){
+//const Visualiser = require('./src/visualiser.js').Visualiser;
+//const renderFunction = require('./demos/rainbow-square.js');
+//
+//// Create a Visualiser instance that visualises the audio using the canvas
+//const visualiser = new Visualiser('out', 'in', renderFunction);
+//},{"./demos/rainbow-square.js":1,"./src/visualiser.js":4}],3:[function(require,module,exports){
+//// Some useful functions for doing visualisations
+
+        
+        
+        
+        
+function lerp(a, b, t) {
+    return (b - a) * t + a;
+}
+
+
+function mean(a) {
+    return a.reduce((total, current) => total + current, 0) / a.length;
+}
+
+function max(a) {
+    return a.reduce(function(total, current) {
+        return Math.max(total, current);
+    });
+}
+
+
+
+function Visualiser(canvasID =document.getElementById('canvas'), audioID=audio.context, renderFunction) {
+
+    this._previousAmplitude = 0;
+
+    // Get references to visualiser instance and render function
+    const v = this;
+    const render = renderFunction;
+
+    // Request animation frame using custom render function
+//    window.requestAnimationFrame(function renderFrame() {
+//        
+//     //   render(v);
+//     
+//    // window.requestAnimationFrame(renderFrame);
+//    });
+}
+
+
+
+
+Visualiser.prototype.setFFTSize = function(size) {
+    this.analyser.fftSize = size;
+};
+
+Visualiser.prototype.getAmplitude = function() {
+    // Get time domain data
+    
+    var data = new Uint8Array(analyser.fftSize);
+ analyser.getByteTimeDomainData(data);
+//console.log(analyser.getByteTimeDomainData(data));
+    // Calculate peak
+    const peak = max(data);
+
+    // Scale amplitude to between 0 and 1
+    const amplitude = (peak - 128) / 128;//console.log(amplitude);
+    return amplitude;
+};
+
+Visualiser.prototype.getAmplitudeSmooth = function(factor = 0.15) {
+    const amp = this.getAmplitude();
+    const smoothAmp = this._smoothAmplitude(amp, factor);
+    return smoothAmp;
+};
+
+Visualiser.prototype.amplitudeIsAbove = function(value) {
+    return this.getAmplitudeSmooth() > value;
+};
+
+
+Visualiser.prototype._smoothAmplitude = function(amp, factor = 0.15) {
+    const smoothAmp =lerp(this._previousAmplitude, amp, factor);
+    this._previousAmplitude = smoothAmp;   
+    return smoothAmp;
+};
+
+Visualiser.prototype.getFrequencies = function() {
+    let data = new Uint8Array(this.analyser.frequencyBinCount);
+    this.analyser.getByteFrequencyData(data);
+
+    // Scale each amplitude to between 0 and 1
+    return Array.prototype.map.call(data, (amp) => amp / 255);
+};
+
+Visualiser.prototype.getFrequenciesSmooth = function(factor = 0.15) {
+    const data = this.getFrequencies();
+    return data.map(x => this._smoothAmplitude(x, factor));
+};
+
+Visualiser.prototype.numberOfFrequencyBands = function() {
+    return this.analyser.frequencyBinCount;
+};
+
+/**
+ * TODO: Fix the weightFrequencies* stuff so that the sound the user hears is not affected by the filter.
+ * Only the analyser's input should be filtered.
+ * 
+ */ 
+Visualiser.prototype.weightFrequenciesBelow = function(frequency, weight) {
+    this.filter.type = 'lowshelf';
+    this.filter.frequency.value = frequency;
+    this.filter.gain.value = weight;
+};
+
+Visualiser.prototype.weightFrequenciesAbove = function(frequency, weight) {
+    this.filter.type = 'highshelf';
+    this.filter.frequency.value = frequency;
+    this.filter.gain.value = weight;
+};
+
+Visualiser.prototype.resetFrequencyWeight = function() {
+    this.filter.gain.value = 0;
+};
+
+
+        function ourRenderFunction(v) {
+        
+
+    const amp = v.getAmplitudeSmooth(0.15);     
+        
+    this.audVdata=v.getAmplitudeSmooth(0.15);
+
+        }
+            
+           const visualiser = new Visualiser(document.getElementById('canvas'),audio.context, ourRenderFunction) ;
+
+// window.ig.setAnimation(audio.context,ourRenderFunction);
+    
+        
+        
+        
+        
+            this.audVdata=Visualiser.prototype.getAmplitude();
+       // console.log(Visualiser.prototype.getAmplitudeSmooth())
+    </script>
+
+    
+	<!--<canvas id="precanvas"></canvas>for Pre-rendering -->
+</body>
+</html>
+
+
+<!--
+<script> //capture frames into animation 
+var canvas = document.getElementById("canvas");
+var shots  = [];
+var grabLimit = 30;  // Number of screenshots to take
+var grabRate  = 100; // Miliseconds. 500 = half a second
+var img = canvas.toDataURL("image/png")
+
+var count     = 0;
+
+function postResults() {
+   console.log("START---------");
+   for (var i = 0; i < shots.length; i++) {
+//      document.write(shots[i]+"<br />");
+document.write('<img src="'+shots[i]+'"/>');
+
+   }    
+   console.log("END-----------");
+}
+
+var grabber = setInterval(function(){
+  count++;
+
+  if (count>grabLimit) {
+    clearInterval(grabber);
+    postResults();
+  }
+
+  var img     = canvas.toDataURL("image/png");
+ shots.push(img);
+//  shots.push(img.replace("data:image/png;base64,",""));
+
+}, grabRate);
+	</script>-->
+

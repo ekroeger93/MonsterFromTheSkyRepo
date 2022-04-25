@@ -19,3 +19,5 @@ Never learn a library framework or game engine before the language!
 
 I published it on Newgrounds so if you want to try it out there you can:
 https://www.newgrounds.com/portal/view/755055
+
+you can also use the server.py to and web browse the localhost
